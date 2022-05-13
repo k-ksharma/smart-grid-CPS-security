@@ -1,2 +1,2 @@
-# smart-grid-CPS-security
-security of cyber physical systems
+# Smart Grid CPS Security
+
