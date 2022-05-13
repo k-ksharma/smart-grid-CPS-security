@@ -8,5 +8,5 @@ python -m classifier TrainingData.txt TestingData.txt [0 or 1 or Filename]
 > python -m classifier TrainingData.txt TestingData.txt 0 > classifierResult.txt
 
 1 to run KNN Accuracy using training dataset and gives the output in a file. Use the below syntax
-> python -m classifier TrainingData.txt TestingData.txt 1 TestingResults.txt
+> python -m classifier TrainingData.txt TestingData.txt TestingResults.txt
 
