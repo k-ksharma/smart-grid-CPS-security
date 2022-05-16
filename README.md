@@ -11,5 +11,9 @@ To run KNN Accuracy using training dataset and gives the output in a file. Use t
 > python -m classifier TrainingData.txt TestingData.txt TestingResults.txt
 
 LP folder is  for Linear Programming and the supporting codes have been put in place. 
+
 lpHelper.py file helps generate the equations needed for LPsolve corresponding to all the users and their task.
+
 Further lpGenerate helps to generate files for the abnormal cases and their costs involved.
+
+Folder graphs contain the plotted data of abnormalities found.
