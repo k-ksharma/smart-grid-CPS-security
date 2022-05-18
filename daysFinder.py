@@ -1,3 +1,9 @@
+## reference and testing program
+'''
+Could be used anywhere for converting the list of [0,1] to their
+respective line number (no. of days)
+'''
+
 dayCount=0
 tracker=[]
 inputFile= open("TestingResults.txt", 'r')

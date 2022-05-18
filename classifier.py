@@ -4,8 +4,29 @@ from sklearn import metrics
 from sklearn import linear_model
 from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
 from sklearn import metrics
+import re
+
+#writing to file
+def writeToFile(predictedList):
+    listOfAbnormalVal=yPred.tolist()
+    fileVal=[]
+    fHandler=open("TestingData.txt","r")
+    resultFile=open("TestingResults.txt","a")
+    for i in range(len(listOfAbnormalVal)):
+        inputVal=fHandler.readline()
+        inputVal=re.sub('\n','',inputVal)
+        inputVal=inputVal.split(",")
+        tmpVar=str(listOfAbnormalVal[i])
+        inputVal.append(tmpVar)
+        inputVal=",".join(inputVal)
+        resultFile.write(inputVal)
+        resultFile.write("\n")
+        inputVal=""
+        
+    resultFile.close()
+    fHandler.close()
 
 #feeding training dataset
 trainDS = pd.read_csv('TrainingData.txt', header=None)
@@ -32,42 +53,25 @@ xTrain = scaler.fit_transform(xTrain)
 xTest = scaler.transform(xTest)
 xClassify = scaler.transform(xClassify)
 xTrainFull = scaler.transform(xTrainFull)
-''''
 
-##loop to find the n-neighbours value - 
-plt.rcParams["figure.figsize"] = (20,10)
-train_accuracy = []
-test_accuracy = []
-n_neighbors = range(1, 15)
+#Gaussian Naive Bayes Classifiers
+gnb = GaussianNB()
+gnb.fit(xTrain, yTrain)
+print("Accuracy for GNB classifier on Training set: ",gnb.score(xTrainFull, yTrainFull))
 
-for n in n_neighbors :
-    knn = KNeighborsClassifier(n_neighbors = n)
-    knn.fit(xTrain, yTrain)
-    train_accuracy.append(knn.score(xTrain, yTrain))
-    test_accuracy.append(knn.score(xTest, yTest))
-     
-plt.plot(n_neighbors, train_accuracy, label = 'train_accuracy')
-plt.plot(n_neighbors, test_accuracy, label = 'test_accuracy')
-plt.xlabel("k", fontsize = 15)
-plt.ylabel("accuracy", fontsize = 15)
-plt.show()
+#Predicting the values for testingData.txt
+yPred=gnb.predict(xClassify)
+writeToFile(yPred)
+print("The output has been written in TestingResults.txt file.")
 
-##command to check the accuracy, once we have selected an optimal value of number of n neighbours
+#converting the output from normal/abnormal to days/no. of line of input for plotting and referencing
+dayCount=0
+tracker=[]
+inputFile= open("TestingResults.txt", 'r')
+while dayCount != 100:
+	line=inputFile.readline()
+	if int(line.split(",")[24])==1:
+		tracker.append(dayCount+1)
+	dayCount+=1
 
-knn = KNeighborsClassifier(n_neighbors = 12)
-knn.fit(xTrain, yTrain)
-print("test accuracy of knn with k=",12," is ",metrics.accuracy_score(yTest,  knn.predict(xTest)))
-
-'''
-
-knn = KNeighborsClassifier(n_neighbors = 12)
-knn.fit(xTrain, yTrain)
-print("Accuracy of knn with k=",12," is ",metrics.accuracy_score(yTest,  knn.predict(xTest))*100, "%")
-
-#predicting the values for the TestingResults from TesingData using TrainingData
-energyPred=knn.predict(xClassify)
-predDS = pd.DataFrame({'Prediction': energyPred})
-testDS = testDS.join(predDS)
-testDS.to_csv("TestingResults.txt", header=None, index=None)
-
-print("Prediction of abnormal values are: ", energyPred)
+print("Count of abnormal schduling values predicted = "+len(tracker),"And the days are "+tracker,sep="\n")
