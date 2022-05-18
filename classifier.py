@@ -57,7 +57,7 @@ xTrainFull = scaler.transform(xTrainFull)
 #Gaussian Naive Bayes Classifiers
 gnb = GaussianNB()
 gnb.fit(xTrain, yTrain)
-print("Accuracy for GNB classifier on Training set: ",gnb.score(xTrainFull, yTrainFull))
+print("Accuracy for GNB classifier on Training set: ",(gnb.score(xTrainFull, yTrainFull))*100)
 
 #Predicting the values for testingData.txt
 yPred=gnb.predict(xClassify)
@@ -74,4 +74,4 @@ while dayCount != 100:
 		tracker.append(dayCount+1)
 	dayCount+=1
 
-print("Count of abnormal schduling values predicted = "+len(tracker),"And the days are "+tracker,sep="\n")
+print("Count of abnormal schduling values predicted = "+str(len(tracker)),"And the days are "+str(tracker),sep="\n")
