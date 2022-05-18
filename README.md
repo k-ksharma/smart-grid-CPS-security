@@ -1,19 +1,37 @@
+
 # Smart Grid CPS Security
-This code is part of my personal coursework.
-To run the code we need a TrainingData.txt and TestingData.txt as input files.
-The syntax for executions is
-python -m classifier TrainingData.txt TestingData.txt [0 or 1 or Filename]
 
-To test the program against testing data set and print its output to the console. In order to save the output to a text file, use the below command
-> python -m classifier TrainingData.txt TestingData.txt 0 > classifierResult.txt
+The purpose of this coursework is to understand the linear programming based energy scheduling for smart home cyber-physical system, interdependence between the pricing information and the energy load scheduling. It also includes developing detection techniques for pricing attacks, while getting familiar with some cyber-physical system security programming skills. This section describes the information about Linear programming and the algorithms, libraries like sklearn, matplotlib, pulp, etc in Python.
 
-To run KNN Accuracy using training dataset and gives the output in a file. Use the below syntax
-> python -m classifier TrainingData.txt TestingData.txt TestingResults.txt
 
-LP folder is  for Linear Programming and the supporting codes have been put in place. 
+## Requirements
+* Git, Python and pip
+* Numpy
+* Pulp
+* Sklearn
+* Matplotlib
+* Openpyxl
+## Installation
 
-lpHelper.py file helps generate the equations needed for LPsolve corresponding to all the users and their task.
+Basic installation needed for the project
 
-Further lpGenerate helps to generate files for the abnormal cases and their costs involved.
+```bash
+  pip install numpy
+  pip install pulp
+  pip install sklearn
+  pip install matplotlib
+  pip install openpyxl
+```
+    
+## Input Files Needed
 
-Folder graphs contain the plotted data of abnormalities found.
+* TestingData.txt
+* TrainingData.txt
+* COMP3217CW2Input.xlsx
+
+## Output Files Generated
+
+* TestingResults.txt
+* Graph (Directory)
+    * Abnormal
+    * Normal
