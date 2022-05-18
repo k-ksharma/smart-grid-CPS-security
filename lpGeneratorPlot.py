@@ -105,8 +105,8 @@ def plot(model, count):
     plt.ylabel('Energy Usage (kW)')
     plt.title('Energy Usage Per Hour For All Users\nDay %i'%count)
     plt.legend(users,loc=0)
-    plt.savefig('Graph/Abnormal/Abnormal'+str(count)+'.png') ## for Abnormal graph
-    ##plt.savefig('Graph/Normal/Normal'+str(count)+'.png') ## for Normal graph
+    ##plt.savefig('Graph/Abnormal/Abnormal'+str(count)+'.png') ## for Abnormal graph
+    plt.savefig('Graph/Normal/Normal'+str(count)+'.png') ## for Normal graph
 
     plt.clf()
 
@@ -118,7 +118,7 @@ tasks, taskNames, xData, yLabels = readData()
 #can be altered to plot normal as well
 for ind, price_list in enumerate(xData):
     #label can be changed for normal or abnormal dataset depeneing upon the need
-    if yLabels[ind] == 1:
+    if yLabels[ind] == 0:
         #creating model to solve and as input to plot function
         model = createLPModel(tasks, taskNames)
         answer = model.solve()
